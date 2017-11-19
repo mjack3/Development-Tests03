@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ *
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="bill/list" extends="master.page">
+		<put-attribute name="title" value="Bills list" />
+		<put-attribute name="body" value="/views/bill/list.jsp" />
+	</definition>
+	
+	<definition name="bill/add" extends="master.page">
+		<put-attribute name="title" value="Add receipt" />
+		<put-attribute name="body" value="/views/bill/add.jsp" />
+	</definition>
+	
+	<definition name="bill/confirmAdd" extends="master.page">
+		<put-attribute name="title" value="Confirm" />
+		<put-attribute name="body" value="/views/bill/confirmAdd.jsp" />
+	</definition>
+	
+	<definition name="bill/create" extends="master.page">
+		<put-attribute name="title" value="Create bill" />
+		<put-attribute name="body" value="/views/bill/create.jsp" />
+	</definition>
+	
+</tiles-definitions>
