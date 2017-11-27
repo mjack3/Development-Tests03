@@ -79,6 +79,7 @@
 		<security:intercept-url pattern="/question/list.do" access="permitAll" />
 		<security:intercept-url pattern="/question/listChoice.do" access="permitAll" />
 		<security:intercept-url pattern="/answer/**" access="permitAll" />
+		<security:intercept-url pattern="/instance/**" access="permitAll" />
 		<security:intercept-url pattern="/validPeriod/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/bill/poller/**" access="hasRole('POLLER')" />
 		<security:intercept-url pattern="/bill/administrator/**" access="hasRole('ADMINISTRATOR')" />

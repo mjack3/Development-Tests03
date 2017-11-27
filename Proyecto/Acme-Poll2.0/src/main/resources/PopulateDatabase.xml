@@ -97,7 +97,7 @@
   		<property name="name" value="adminName" />
   		<property name="surname" value="adminSurname" />
   		<property name="email" value="adminEmail@admin.es" />
-  		<property name="phone" value="+34(68)687975536" />
+  		<property name="phone" value="+34 (68) 687975536" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -119,7 +119,7 @@
   		<property name="name" value="poller1Name" />
   		<property name="surname" value="poller1Surname" />
   		<property name="email" value="poller1@poller.es" />
-  		<property name="phone" value="+34(34)5654554" />
+  		<property name="phone" value="+34 (34) 5654554" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -143,7 +143,7 @@
   		<property name="name" value="poller2Name" />
   		<property name="surname" value="poller2Surname" />
   		<property name="email" value="poller2@poller.es" />
-  		<property name="phone" value="+56(213)54554" />
+  		<property name="phone" value="+56 (213) 54554" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -169,7 +169,7 @@
   		<property name="name" value="poller3Name" />
   		<property name="surname" value="poller3Surname" />
   		<property name="email" value="poller3@poller.es" />
-  		<property name="phone" value="+56(213)54554" />
+  		<property name="phone" value="+56 (213) 54554" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -193,7 +193,7 @@
   		<property name="name" value="poller4Name" />
   		<property name="surname" value="poller4Surname" />
   		<property name="email" value="poller4@poller.es" />
-  		<property name="phone" value="+56(213)54554" />
+  		<property name="phone" value="+56 (213) 54554" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -216,7 +216,7 @@
   		<property name="name" value="poller5Name" />
   		<property name="surname" value="poller5Surname" />
   		<property name="email" value="poller5@poller.es" />
-  		<property name="phone" value="+58(99)54554" />
+  		<property name="phone" value="+58 (99) 54554" />
   		<property name="address" value="11560" />
   		<property name="chirps" >
   			<list></list>
@@ -323,6 +323,8 @@
  	</bean>
  	
  	<bean id="instance1" class="domain.Instance">
+ 		<property name="edits" value="0" />
+ 		<property name="ticker" value="AA-12345" />
 		<property name="name" value="anonimous" />
 		<property name="city" value="Sevilla" />
 		<property name="gender" value="HOMBRE" />
@@ -338,6 +340,8 @@
 	</bean>
 	
 	<bean id="instance2" class="domain.Instance">
+		<property name="edits" value="0" />
+		<property name="ticker" value="BB-12345" />
 		<property name="name" value="anonimous2" />
 		<property name="city" value="Madrid" />
 		<property name="gender" value="HOMBRE" />
@@ -353,6 +357,8 @@
 	</bean>
 	
 	<bean id="instance3" class="domain.Instance">
+		<property name="edits" value="0" />
+		<property name="ticker" value="CC-12345" />
 		<property name="name" value="anonimous3" />
 		<property name="city" value="Sevilla" />
 		<property name="gender" value="MUJER" />
@@ -513,6 +519,8 @@
  	
  	
  	<bean id="instance4" class="domain.Instance">
+ 		<property name="edits" value="0" />
+ 		<property name="ticker" value="DD-12345" />
 		<property name="name" value="anonimous4" />
 		<property name="city" value="Barcelona" />
 		<property name="gender" value="MUJER"/>
@@ -583,6 +591,8 @@
  	</bean>
  	
  	<bean id="instance5" class="domain.Instance">
+ 		<property name="edits" value="0" />
+ 		<property name="ticker" value="EE-12345" />
 		<property name="name" value="anonimous5" />
 		<property name="city" value="Madrid" />
 		<property name="gender" value="MUJER"/>
@@ -648,6 +658,8 @@
  	
 	
 	<bean id="instance6" class="domain.Instance">
+		<property name="edits" value="0" />
+		<property name="ticker" value="FF-12345" />
 		<property name="name" value="anonimous6" />
 		<property name="city" value="Madrid" />
 		<property name="gender" value="MUJER"/>
@@ -876,6 +888,8 @@
  	</bean>
 		
 	<bean id="instance7" class="domain.Instance">
+		<property name="edits" value="0" />
+		<property name="ticker" value="GG-12345" />
 		<property name="name" value="real anonimous" />
 		<property name="city" value="Sevilla" />
 		<property name="gender" value="HOMBRE"/>
@@ -890,6 +904,8 @@
 	</bean>
 	
 	<bean id="instance8" class="domain.Instance">
+		<property name="edits" value="0" />
+		<property name="ticker" value="HH-12345" />
 		<property name="name" value="new anonimous" />
 		<property name="city" value="Sevilla" />
 		<property name="gender" value="MUJER"/>

@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Administrator;
 import services.AdministratorService;
 import services.BillService;
+import services.FolderService;
+import services.InstanceService;
+import services.MailMessageService;
 import services.PollService;
 
 @RequestMapping("/administrator")
@@ -26,7 +29,12 @@ public class AdministratorController {
 	private PollService pollService;
 	@Autowired
 	private BillService billService;
-
+	@Autowired
+	private FolderService folderService;
+	@Autowired
+	private MailMessageService mailMessageService;
+	@Autowired
+	private InstanceService instanceService;
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(final int userAccountID) {
@@ -79,6 +87,14 @@ public class AdministratorController {
 		result.addObject("ratioBillsHaveToBeEndorsed", billService.ratioBillsHaveToBeEndorsed().toString());
 		
 		result.addObject("ratioBillsOverdue", billService.ratioBillsOverdue().toString());
+		
+		result.addObject("avgFoldersPerActor", folderService.avgFoldersPerActor());
+		result.addObject("avgSystemFolders", mailMessageService.avgSystemFolders());
+		result.addObject("avgSpamMessagesPerActor", mailMessageService.avgSpamMessagesPerActor());
+		
+		result.addObject("avgEditPerInstance", instanceService.avgEditPerInstance());
+		result.addObject("pollInstanceMostEdited", pollService.pollInstanceMostEdited());
+		
 		
 		return result;
 

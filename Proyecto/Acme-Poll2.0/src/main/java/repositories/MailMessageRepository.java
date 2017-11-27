@@ -26,4 +26,10 @@ public interface MailMessageRepository extends JpaRepository<MailMessage, Intege
 
 	@Query("select c from Actor c where c.email = ?1 or c.userAccount.username = ?2")
 	Actor selectActorByMail(String email, String username);
+	
+	@Query("select avg(c.mailMessages.size) from Folder c where c.name in ('inbox','outbox','trashbox','spambox')")
+	Double avgSystemFolders();
+	
+	@Query("select avg(c.mailMessages.size) from Actor a join a.folders c where c.name ='trashbox'")
+	Double avgSpamMessagesPerActor();
 }

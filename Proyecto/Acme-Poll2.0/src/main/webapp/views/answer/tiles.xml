@@ -21,4 +21,9 @@
 		<put-attribute name="body" value="/views/answer/answer.jsp" />
 	</definition>
 	
+	<definition name="answer/correctSave" extends="master.page">
+		<put-attribute name="title" value="Instance generate correctly" />
+		<put-attribute name="body" value="/views/answer/correctSave.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -23,4 +23,6 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	@Query("select c from Actor c where c.userAccount.username = ?1")
 	Actor selectByUsername(String username);
 
+	@Query("select avg(c.folders.size) from Actor c ")
+	Double avgFoldersPerActor();
 }

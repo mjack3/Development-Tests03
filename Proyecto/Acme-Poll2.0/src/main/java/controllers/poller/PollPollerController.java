@@ -79,14 +79,21 @@ public class PollPollerController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Poll poll,BindingResult binding) {
 		ModelAndView res= null;
-
+		
 		if (binding.hasErrors()) {
 			res = new ModelAndView("poll/edit");
 			res.addObject("poll", poll);
 		} else {
 			try {
+				
+				if(poll.getStartDate().after(poll.getEndDate())) {
+					binding.rejectValue("startDate", "error.startDate", "error");
+					throw new IllegalArgumentException();
+				}
+								
+				
 				pollService.update(poll);
-				res = new ModelAndView("poll/edit");
+				res = new ModelAndView("redirect:list.do");
 				res.addObject("poll", poll);
 			}catch (Exception e) {
 				res = new ModelAndView("poll/edit");

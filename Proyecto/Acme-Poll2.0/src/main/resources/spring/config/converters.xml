@@ -32,6 +32,8 @@
 		<bean class="converters.FolderToStringConverter" />
 		<bean class="converters.MailMessageToStringConverter" />
 		<bean class="converters.SpamWordToStringConverter" />
+		<bean class="converters.InstanceToStringConverter" />
+		<bean class="converters.QuestionToStringConverter" />
 		
 
 		<bean class="converters.StringToUserAccountConverter" />
@@ -47,6 +49,8 @@
 		<bean class="converters.StringToFolderConverter" />
 		<bean class="converters.StringToMailMessageConverter" />
 		<bean class="converters.StringToSpamWordConverter" />
+		<bean class="converters.StringToInstanceConverter" />
+		<bean class="converters.StringToQuestionConverter" />
 		
 		
 		

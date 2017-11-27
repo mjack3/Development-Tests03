@@ -65,10 +65,6 @@ public class PollService {
 	public List<Poll> findPollActivated() {
 		final Date now = Calendar.getInstance().getTime();
 
-		//DateFormat.getDateInstance().format(now);
-
-		//System.out.print(now.toString());
-
 		return this.pollRepository.findPollActivated(now);
 
 	}
@@ -167,4 +163,9 @@ public class PollService {
 		return resfinal;
 	}
 
+	public List<Poll> pollInstanceMostEdited() {
+		return pollRepository.pollInstanceMostEdited();
+	}
+
+	
 }

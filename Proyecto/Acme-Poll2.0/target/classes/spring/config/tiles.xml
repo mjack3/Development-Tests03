@@ -39,7 +39,7 @@
 		<value>/views/bill/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/mailmessage/tiles.xml</value>
-		
+		<value>/views/instance/tiles.xml</value>
 		
 		
 	</util:list>

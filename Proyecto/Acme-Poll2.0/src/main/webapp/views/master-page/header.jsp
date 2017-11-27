@@ -78,6 +78,8 @@
 
 						<li><a class="fNiv" href="poll/list.do"><spring:message
 									code="master.page.poll.list" /></a></li>
+						<li><a class="fNiv" href="instance/toSearch.do"><spring:message
+									code="master.page.instance.search" /></a></li>
 
 					</security:authorize>
 

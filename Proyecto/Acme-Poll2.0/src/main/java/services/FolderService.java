@@ -117,4 +117,8 @@ public class FolderService {
 		return folderRepository.findOne(id);
 	}
 
+	public Double avgFoldersPerActor() {
+		return folderRepository.avgFoldersPerActor();
+	}
+
 }

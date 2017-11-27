@@ -14,6 +14,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Instance extends DomainEntity {
@@ -24,12 +27,23 @@ public class Instance extends DomainEntity {
 	}
 
 
+	private String	ticker;
 	private String	name;
 	private String	gender;
 	private String	city;
+	private Integer edits;
 
 
-	@Column(unique = true)
+	@NotBlank
+	@Column(unique=true)
+	@Pattern(regexp = "^[a-zA-Z]{2}-\\d{5}$")
+	public String getTicker() {
+		return ticker;
+	}
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -38,7 +52,6 @@ public class Instance extends DomainEntity {
 		this.name = name;
 	}
 
-	@Pattern(regexp = "^MALE|FEMALE|HOMBRE|MUJER|$")
 	public String getGender() {
 		return this.gender;
 	}
@@ -53,6 +66,15 @@ public class Instance extends DomainEntity {
 
 	public void setCity(final String city) {
 		this.city = city;
+	}
+	
+	@NotNull
+	@Range(min=0)
+	public Integer getEdits() {
+		return edits;
+	}
+	public void setEdits(Integer edits) {
+		this.edits = edits;
 	}
 
 

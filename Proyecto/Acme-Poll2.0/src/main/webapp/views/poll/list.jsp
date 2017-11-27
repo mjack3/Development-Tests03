@@ -229,7 +229,3 @@ function diffDaysValid(date1,date2,invalidPeriod){
 										});
 					});
 </script>
-
-
-
-

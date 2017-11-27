@@ -233,4 +233,12 @@ public class MailMessageService {
 		return mailMessageRepository.messagesByFolder(folder_id);
 	}
 
+	public Double avgSystemFolders() {
+		return mailMessageRepository.avgSystemFolders();
+	}
+
+	public Double avgSpamMessagesPerActor() {
+		return mailMessageRepository.avgSpamMessagesPerActor();
+	}
+
 }

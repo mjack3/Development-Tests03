@@ -57,3 +57,36 @@
 		<spring:message code="dashboard.ratioBillsOverdue" var="dash1" />	
 		<h4><jstl:out value="${dash1}" />:</h4>
 		<jstl:out value="${ratioBillsOverdue}" />
+		
+		<br/><br/>
+		
+		<spring:message code="dashboard.avgFoldersPerActor" var="dash1" />	
+		<h4><jstl:out value="${dash1}" />:</h4>
+		<jstl:out value="${avgFoldersPerActor}" />
+		
+		<br/><br/>
+		
+		<spring:message code="dashboard.avgSystemFolders" var="dash1" />	
+		<h4><jstl:out value="${dash1}" />:</h4>
+		<jstl:out value="${avgSystemFolders}" />
+		
+		<br/><br/>
+		
+		<spring:message code="dashboard.avgSpamMessagesPerActor" var="dash1" />	
+		<h4><jstl:out value="${dash1}" />:</h4>
+		<jstl:out value="${avgSpamMessagesPerActor}" />
+		
+		<br/><br/>
+		
+		<spring:message code="dashboard.avgEditPerInstance" var="dash1" />	
+		<h4><jstl:out value="${dash1}" />:</h4>
+		<jstl:out value="${avgEditPerInstance}" />
+		
+		<br/><br/>
+		
+		<spring:message code="dashboard.pollInstanceMostEdited" var="dash1" />	
+		<h4><jstl:out value="${dash1}" />:</h4>
+		<jstl:forEach items="${pollInstanceMostEdited}" var="a">
+			${a.title } ,
+		</jstl:forEach>
+		
