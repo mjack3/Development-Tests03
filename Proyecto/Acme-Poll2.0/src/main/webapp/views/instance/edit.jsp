@@ -20,27 +20,110 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="instance/save" modelAttribute="instance">
 
-		<form:hidden path="id" />
-		<form:hidden path="version" />
-		<form:hidden path="poll" />
-		<form:hidden path="answers" />
-		
-		<label> <spring:message code="instance.name"/> </label>
+
+<b><spring:message code="answer.name" /></b>
+<input type="text" class="form-control" style="width: 30%;" name="name" id="name">
+
+<br/>
+
+<b><spring:message code="answer.gender" /></b>
+
+<input type="text" id="gender" class="form-control" style="width: 30%;" name="gender" />
+<i><spring:message code="answer.regex"/></i>
+
+<br/>
+<br/>
+
+<b><spring:message code="answer.city" /></b>
+
+<input type="text" class="form-control" style="width: 30%;" name="city"/>
+
+<br/>
+<br/>
+
+
+
+
+<jstl:if test="${question.size()>0}">
+	<jstl:forEach begin="0" end="${question.size()-1}" var="a">
+
+		<b>${question.get(a).number}. ${question.get(a).statment}</b>
+
 		<br />
-		<input class="form-control" value="${instance.name}" type="text" name="name"/>
-		<form:errors cssClass="error" path="name" /> <br />
-		
-		<label> <spring:message code="instance.gender"/> </label>
+
+		<div class="btn-group" data-toggle="buttons">
+			<jstl:forEach begin="0" end="${question.get(a).choices.size()-1}"
+				var="i">
+
+				<input type="radio" value="${i}" name="radio${a}">${question.get(a).choices.get(i)}
 		<br />
-		<input class="form-control" value="${instance.gender}" type="text" name="gender"/>
-		<form:errors cssClass="error" path="gender" /> <br />
-		
-		<label> <spring:message code="instance.city"/> </label>
+
+			</jstl:forEach>
+		</div>
 		<br />
-		<input class="form-control" value="${instance.city}" type="text" name="city"/>
-		<form:errors cssClass="error" path="city" /> <br />
+
+	</jstl:forEach>
+</jstl:if>
+
+
+<spring:message code="actor.cancel" var="actorCancelHeader"/>
+		
+<input type="button" class="btn btn-primary" value='<spring:message code='answer.save' />' onclick="save();">
+<input onclick=" window.location = 'poll/list.do'" class="btn btn-warning" type="button" name="cancel" value="${actorCancelHeader}"/>
+
+
+<spring:message code="answer.alert" var="alert" />
+<spring:message code="must.be.gender" var="alert1" />
+<spring:message code="answer.commit.error2" var="alert2" />
+
+<script>
+
+function save(){
+	
+	//Comprobacion de que haya respondido todas las preguntas y rellenado todos los campos
+	if($( ":input:checked" ).length == ${question.size()}){
+		
+		// comprobacion del género
+		var val1 = $('#gender').val();
+		
+		if(val1 === "HOMBRE" || val1 === "MUJER" || val1 ==="MALE" || val1 ==="FEMALE" || val1 === ""){
 		
 		
-</form:form>
+		var res = "";
+		
+		//Recorro todos los input que estan marcados
+		$( ":input:checked" ).each(function() { 
+			res = res + "," + $(this).attr('value');
+		});
+		
+
+		//Llamada POST 
+		$.ajax({
+		    url: 'answer/update.do',
+		    type: "POST",
+		    data: {'data':res,'city':$('[name="city"]').val(),'gender':$('[name="gender"]').val(),'name':$('[name="name"]').val(),'instance':${instance.id}},
+		    success: function(result){
+		    	//Si el resultado contiene el titulo del listado de poll es que es correcto
+		    	if(result !=null && (result.includes('Polls list') || result.includes('Lista de encuestas'))){
+		    		//Redireccion
+		   		 	document.location.href = 'welcome/index.do';
+		    	}else{
+		    		alert("${alert2}");
+		    	}
+		    }
+		}); 
+
+		
+		}else{
+			alert("${alert1}");
+		}
+		
+		
+	}else{
+		alert("${alert}");
+	}
+	
+}
+
+</script>

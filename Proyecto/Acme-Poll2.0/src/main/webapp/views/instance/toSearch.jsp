@@ -39,7 +39,7 @@ function search(){
 		//Llamada POST 
 		$.ajax({
 		    url: 'instance/search.do',
-		    type: "POST",
+		    type: "GET",
 		    data: {'q':ticker},
 		    success: function(result){
 		   		document.location.href = 'instance/redirect.do';

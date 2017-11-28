@@ -100,6 +100,31 @@ public class InstanceService {
 
 		return this.instanceRepository.save(ins);
 	}
+	
+	public Instance update(Instance instance, List<Answer> ansToSave,  Poll p,  String city,  String gender,  String name) {
+
+
+		instance.setGender(city);
+		instance.setCity(gender);
+		instance.setPoll(p);
+
+		List<Answer> ansFinal = new LinkedList<Answer>();
+		for (Answer a : ansToSave) {
+			a = this.answerService.save(a);
+			ansFinal.add(a);
+		}
+
+		instance.setAnswers(ansFinal);
+		instance.setName(name);
+
+		List<Instance> insts = (List<Instance>) p.getInstances();
+		insts.add(instance);
+		p.setInstances(insts);
+		
+		instance.setEdits(instance.getEdits()+1);
+
+		return this.instanceRepository.save(instance);
+	}
 
 	
 	public Instance findByTicker(String ticker) {

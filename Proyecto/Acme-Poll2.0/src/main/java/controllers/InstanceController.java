@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Instance;
+import domain.Question;
 import services.InstanceService;
 
 @Controller
@@ -38,7 +41,10 @@ public class InstanceController {
 		ModelAndView res;
 
 		res = new ModelAndView("instance/edit");
-		res.addObject("instance", instanceService.findOne(toSave));
+		Instance ins = instanceService.findOne(toSave);
+		List<Question> ques=(List<Question>) ins.getPoll().getQuestions();
+		res.addObject("question", ques);
+		res.addObject("instance", ins);
 
 		return res;
 	}
