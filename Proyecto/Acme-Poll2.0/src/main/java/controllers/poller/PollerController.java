@@ -49,8 +49,6 @@ public class PollerController extends AbstractController {
 			result = new ModelAndView("poller/view");
 
 			final Poller p = this.pollerService.findPollerFromPoll(pollId);
-			final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			Assert.isTrue(pollerlogin.getId() == p.getId());
 
 			result.addObject("poller", p);
 

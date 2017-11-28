@@ -43,11 +43,15 @@ public class QuestionPollerController {
 	public ModelAndView listChoice(@RequestParam Integer q) {
 		ModelAndView res;
 
-		res = new ModelAndView("choice/list");
+		try {
+			res = new ModelAndView("choice/list");
 
-		Question question = questionService.findOne(q);
+			Question question = questionService.findOne(q);
 
-		res.addObject("choice", question.getChoices());
+			res.addObject("choice", question.getChoices());
+		} catch (Throwable e) {
+			res = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return res;
 	}
