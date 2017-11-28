@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 import domain.Poller;
+import security.LoginService;
 import services.PollerService;
 
 @Controller
@@ -20,7 +22,9 @@ import services.PollerService;
 public class PollerController extends AbstractController {
 
 	@Autowired
-	private PollerService pollerService;
+	private PollerService	pollerService;
+	@Autowired
+	private LoginService	loginService;
 
 
 	/*
@@ -45,6 +49,8 @@ public class PollerController extends AbstractController {
 			result = new ModelAndView("poller/view");
 
 			final Poller p = this.pollerService.findPollerFromPoll(pollId);
+			final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			Assert.isTrue(pollerlogin.getId() == p.getId());
 
 			result.addObject("poller", p);
 
@@ -61,10 +67,14 @@ public class PollerController extends AbstractController {
 	public ModelAndView edit(final int userAccountID) {
 		ModelAndView result;
 		Poller poller;
-
-		poller = this.pollerService.findActorByUsername(userAccountID);
-
-		result = this.createEditModelAndView(poller);
+		try {
+			poller = this.pollerService.findActorByUsername(userAccountID);
+			final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			Assert.isTrue(poller.getId() == pollerlogin.getId());
+			result = this.createEditModelAndView(poller);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}
