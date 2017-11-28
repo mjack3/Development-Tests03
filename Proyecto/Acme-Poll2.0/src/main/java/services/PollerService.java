@@ -10,8 +10,9 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.PollerRepository;
 import domain.Poller;
+import repositories.PollerRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -20,7 +21,9 @@ public class PollerService {
 	//Manager repositories
 
 	@Autowired
-	private PollerRepository pollerRepository;
+	private PollerRepository	pollerRepository;
+	@Autowired
+	private LoginService		loginService;
 
 
 	//Constructor
@@ -48,6 +51,10 @@ public class PollerService {
 
 		if (this.exists(poller.getId())) {
 			p = this.findOne(poller.getId());
+			if (!LoginService.hasRole("ADMINISTRATOR")) {
+				final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+				Assert.isTrue(pollerlogin.getId() == p.getId());
+			}
 			p.setName(poller.getName());
 			p.setEmail(poller.getEmail());
 			p.setPhone(poller.getPhone());
@@ -84,10 +91,10 @@ public class PollerService {
 	}
 
 	public Boolean isBanned(int pollerId) {
-		Assert.isTrue(pollerId!=0);
+		Assert.isTrue(pollerId != 0);
 		Poller poller = this.findOne(pollerId);
 		return this.pollersBanned().contains(poller);
-		
+
 	}
 
 }

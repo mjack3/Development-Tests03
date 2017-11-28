@@ -41,14 +41,18 @@ public class PollerController extends AbstractController {
 	public ModelAndView view(final Integer pollId) {
 		ModelAndView result;
 
-		result = new ModelAndView("poller/view");
+		try {
+			result = new ModelAndView("poller/view");
 
-		final Poller p = this.pollerService.findPollerFromPoll(pollId);
-		
-		result.addObject("poller", p);
+			final Poller p = this.pollerService.findPollerFromPoll(pollId);
 
-		System.out.println(p);
-		System.out.println(pollId);
+			result.addObject("poller", p);
+
+			System.out.println(p);
+			System.out.println(pollId);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}
@@ -69,10 +73,10 @@ public class PollerController extends AbstractController {
 	public ModelAndView savePoller(@Valid Poller poller, BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			for ( ObjectError e : binding.getAllErrors()) {
+			for (ObjectError e : binding.getAllErrors()) {
 				System.out.println(e.toString());
 			}
-				
+
 			result = this.createEditModelAndView(poller, "poller.commit.error");
 		} else
 			try {

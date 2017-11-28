@@ -41,7 +41,21 @@
 
 								<li><a href="j_spring_security_logout"><spring:message
 											code="master.page.logout" /> </a></li>
+											
 								
+							</ul></li>
+							
+							
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"><spring:message
+									code="master.page.chirps" /><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="actor/list.do"><spring:message
+											code="master.page.chirp" /> </a></li>
+							<li><a href="chirp/actor/mylist.do"><spring:message
+											code="master.page.mychirp" /> </a></li>
 							</ul></li>
 						<li><a href="folder/actor/list.do"><spring:message
 											code="master.page.actor.folders" /> </a></li>
@@ -80,6 +94,8 @@
 									code="master.page.poll.list" /></a></li>
 						<li><a class="fNiv" href="instance/toSearch.do"><spring:message
 									code="master.page.instance.search" /></a></li>
+									
+						
 
 					</security:authorize>
 

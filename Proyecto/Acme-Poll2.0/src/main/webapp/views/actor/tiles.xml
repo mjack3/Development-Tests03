@@ -4,7 +4,7 @@
  * tiles_es.xml
  *
  * Copyright (C) 2017 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
  * http://www.tdg-seville.info/License.html
@@ -16,14 +16,11 @@
        
 <tiles-definitions>
 
-	<definition name="chirp/list" extends="master.page">
-		<put-attribute name="title" value="Chirp list" />
-		<put-attribute name="body" value="/views/chirp/list.jsp" />
+	
+	<definition name="actor/list" extends="master.page">	
+		<put-attribute name="title" value="List Actor" />
+		<put-attribute name="body" value="/views/actor/list.jsp" />
 	</definition>
 	
-	<definition name="chirp/create" extends="master.page">
-		<put-attribute name="title" value="Chirp Create" />
-		<put-attribute name="body" value="/views/chirp/create.jsp" />
-	</definition>
-	
+
 </tiles-definitions>

@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -20,23 +21,27 @@ import services.PollService;
 public class HintController {
 
 	@Autowired
-	private PollService pollService;
+	private PollService	pollService;
 
 	@Autowired
-	private HintService hintService;
+	private HintService	hintService;
 
-	private Integer toSave;
+	private Integer		toSave;
+
 
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam Integer q) {
 		ModelAndView res;
+		try {
+			res = new ModelAndView("hint/list");
 
-		res = new ModelAndView("hint/list");
+			Poll poll = pollService.findOne(q);
 
-		Poll poll = pollService.findOne(q);
-
-		res.addObject("hint", poll.getHints());
-		res.addObject("pollId", q);
+			res.addObject("hint", poll.getHints());
+			res.addObject("pollId", q);
+		} catch (Throwable e) {
+			res = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return res;
 	}
@@ -44,64 +49,67 @@ public class HintController {
 	@RequestMapping("/create")
 	public ModelAndView create(@RequestParam Integer q) {
 		ModelAndView res;
+		try {
+			res = new ModelAndView("hint/create");
 
-		res = new ModelAndView("hint/create");
-
-		res.addObject("hint", hintService.create());
-		toSave=q;
+			res.addObject("hint", hintService.create());
+			toSave = q;
+		} catch (Throwable e) {
+			res = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return res;
 	}
 
-	@RequestMapping(value="/save", method=RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Hint hint,BindingResult binding) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Hint hint, BindingResult binding) {
 		Integer to = toSave;
 		if (binding.hasErrors()) {
 			list(to);
 		} else {
 			try {
-				hintService.save(hint,to);
+				hintService.save(hint, to);
 				return list(to);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				return list(to);
 			}
 		}
-		toSave=null;
+		toSave = null;
 		return list(to);
 
 	}
 
 	@RequestMapping("/score")
-	public ModelAndView score(@RequestParam Integer q,@RequestParam Integer p) {
+	public ModelAndView score(@RequestParam Integer q, @RequestParam Integer p) {
 		ModelAndView res;
 
 		res = new ModelAndView("hint/score");
 
 		res.addObject("hint", q);
 		res.addObject("pollId", p);
-		toSave=p;
+		toSave = p;
 
 		return res;
 	}
 
-	@RequestMapping(value="/score", method=RequestMethod.POST)
-	public ModelAndView scoreSave(@RequestParam Integer q, @RequestParam Integer t) {	
-		Integer to=toSave;	
+	@RequestMapping(value = "/score", method = RequestMethod.POST)
+	public ModelAndView scoreSave(@RequestParam Integer q, @RequestParam Integer t) {
+		Integer to = toSave;
 		try {
-			hintService.score(q,t);
+			hintService.score(q, t);
 			return list(to);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return list(to);
 		}
 
 	}
-	
-	@RequestMapping(value="/remove")
-	public ModelAndView remove(@RequestParam Integer q, @RequestParam Integer p) {	
+
+	@RequestMapping(value = "/remove")
+	public ModelAndView remove(@RequestParam Integer q, @RequestParam Integer p) {
 		try {
-			hintService.remove(q,p);
+			hintService.remove(q, p);
 			return list(p);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return list(p);
 		}
 

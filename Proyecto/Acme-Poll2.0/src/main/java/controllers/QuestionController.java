@@ -1,3 +1,4 @@
+
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +17,36 @@ import services.QuestionService;
 public class QuestionController {
 
 	@Autowired
-	private PollService pollService;
-	
+	private PollService		pollService;
+
 	@Autowired
-	private QuestionService questionService;
-	
+	private QuestionService	questionService;
+
+
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam Integer q) {
 		ModelAndView res;
+		try {
+			res = new ModelAndView("question/list");
 
-		res = new ModelAndView("question/list");
-		
-		Poll poll = pollService.findOne(q);
-		
-		res.addObject("question", poll.getQuestions());
+			Poll poll = pollService.findOne(q);
+
+			res.addObject("question", poll.getQuestions());
+		} catch (Throwable e) {
+			res = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return res;
 	}
-	
+
 	@RequestMapping("/listChoice")
 	public ModelAndView listChoice(@RequestParam Integer q) {
 		ModelAndView res;
 
 		res = new ModelAndView("choice/list");
-		
+
 		Question question = questionService.findOne(q);
-		
+
 		res.addObject("choice", question.getChoices());
 
 		return res;

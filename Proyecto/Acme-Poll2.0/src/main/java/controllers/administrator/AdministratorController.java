@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Administrator;
+import security.LoginService;
 import services.AdministratorService;
 import services.BillService;
 import services.FolderService;
@@ -24,30 +26,37 @@ import services.PollService;
 public class AdministratorController {
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 	@Autowired
-	private PollService pollService;
+	private PollService				pollService;
 	@Autowired
-	private BillService billService;
+	private BillService				billService;
 	@Autowired
-	private FolderService folderService;
+	private FolderService			folderService;
 	@Autowired
-	private MailMessageService mailMessageService;
+	private MailMessageService		mailMessageService;
 	@Autowired
-	private InstanceService instanceService;
+	private InstanceService			instanceService;
+	@Autowired
+	private LoginService			loginService;
+
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(final int userAccountID) {
 		ModelAndView result;
-		Administrator admin;
+		try {
+			Administrator admin;
+			final Administrator adminlogin = (Administrator) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
 
-		admin = this.administratorService.findActorByUsername(userAccountID);
-
-		result = this.createEditModelAndView(admin);
+			admin = this.administratorService.findActorByUsername(userAccountID);
+			Assert.isTrue(admin.getId() == adminlogin.getId());
+			result = this.createEditModelAndView(admin);
+		} catch (final Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/save-administrator", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveAdministrator(@Valid final Administrator admin, final BindingResult binding) {
 		ModelAndView result;
@@ -65,37 +74,33 @@ public class AdministratorController {
 			}
 		return result;
 	}
-	
-	
+
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView list() {
 
 		ModelAndView result;
 		result = new ModelAndView("administrator/dashboard");
-		
-		result.addObject("findMinAvgStdMaxPollsByPoller",pollService.findMinAvgStdMaxPollsByPoller()
-				);
-		result.addObject("findMinAvgStdMaxInstancesByPoll",
-				pollService.findMinAvgStdMaxInstancesByPoll());
-		
+
+		result.addObject("findMinAvgStdMaxPollsByPoller", pollService.findMinAvgStdMaxPollsByPoller());
+		result.addObject("findMinAvgStdMaxInstancesByPoll", pollService.findMinAvgStdMaxInstancesByPoll());
+
 		result.addObject("findMinAvgStdMaxQuestionByPoll", pollService.findMinAvgStdMaxQuestionByPoll());
-		
+
 		result.addObject("avgMaxMinAmountToBePaid", billService.avgMaxMinAmountToBePaid());
-		
+
 		result.addObject("ratioBillsHaveBeenEndorsed", billService.ratioBillsHaveBeenEndorsed().toString());
-		
+
 		result.addObject("ratioBillsHaveToBeEndorsed", billService.ratioBillsHaveToBeEndorsed().toString());
-		
+
 		result.addObject("ratioBillsOverdue", billService.ratioBillsOverdue().toString());
-		
+
 		result.addObject("avgFoldersPerActor", folderService.avgFoldersPerActor());
 		result.addObject("avgSystemFolders", mailMessageService.avgSystemFolders());
 		result.addObject("avgSpamMessagesPerActor", mailMessageService.avgSpamMessagesPerActor());
-		
+
 		result.addObject("avgEditPerInstance", instanceService.avgEditPerInstance());
 		result.addObject("pollInstanceMostEdited", pollService.pollInstanceMostEdited());
-		
-		
+
 		return result;
 
 	}
@@ -119,7 +124,5 @@ public class AdministratorController {
 
 		return result;
 	}
-	
-	
 
 }

@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -16,12 +17,13 @@ import services.InstanceService;
 @Controller
 @RequestMapping("/instance")
 public class InstanceController {
-	
-	@Autowired
-	private InstanceService instanceService;
 
-	private Integer toSave;
-	
+	@Autowired
+	private InstanceService	instanceService;
+
+	private Integer			toSave;
+
+
 	@RequestMapping("/toSearch")
 	public ModelAndView toSearch() {
 		ModelAndView res;
@@ -30,7 +32,7 @@ public class InstanceController {
 
 		return res;
 	}
-	
+
 	@RequestMapping("/redirect")
 	public ModelAndView redirect() {
 		ModelAndView res;
@@ -40,27 +42,27 @@ public class InstanceController {
 
 		return res;
 	}
-	
+
 	@RequestMapping("/search")
 	public ModelAndView search(@RequestParam String q) {
 		ModelAndView res;
 
 		res = new ModelAndView("instance/edit");
 		res.addObject("instance", instanceService.findByTicker(q));
-		toSave=instanceService.findByTicker(q).getId();
-		
+		toSave = instanceService.findByTicker(q).getId();
+
 		return res;
 	}
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Instance instance,BindingResult binding) {
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Instance instance, BindingResult binding) {
 		if (binding.hasErrors()) {
 			return search(instance.getTicker());
 		} else {
 			try {
 				instanceService.update(instance);
 				return new ModelAndView("redirect:welcome/index.do");
-			}catch (Exception e) {
+			} catch (Exception e) {
 				return search(instance.getTicker());
 			}
 		}
