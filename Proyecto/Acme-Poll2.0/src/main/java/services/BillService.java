@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Actor;
 import domain.Bill;
 import domain.Poll;
+import domain.Poller;
 import repositories.BillRepository;
-import repositories.PollRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -25,6 +28,9 @@ public class BillService {
 
 	@Autowired
 	private PollService pollService;
+	
+	@Autowired
+	private ActorService actorService;
 
 	//Constructor
 
@@ -59,6 +65,8 @@ public class BillService {
 	}
 
 	public void endorse(Bill bill) {
+		
+		Assert.isTrue(bill.getPaid());
 		
 		if(bill.getPaid()) {
 			bill.setEndorsed(true);
@@ -107,6 +115,21 @@ public class BillService {
 		pollService.update(poll);
 		
 		return bill;
+	}
+	
+	public List<Bill> list() {
+		Assert.isTrue(LoginService.isAnyAuthenticated() && LoginService.hasRole("POLLER"));
+		Poller p =(Poller)actorService.findByAccount(LoginService.getPrincipal().getId());
+		
+		return (List<Bill>) p.getBills();
+	}
+	
+	public Bill addReceipt(Integer bId,String receipt) {
+		Bill b = billRepository.findOne(bId);
+		Assert.isTrue(billRepository.exists(b.getId()) && !b.getPaid() && !b.getEndorsed());
+		b.setReceipt(receipt);
+		
+		return billRepository.save(b);
 	}
 	
 	

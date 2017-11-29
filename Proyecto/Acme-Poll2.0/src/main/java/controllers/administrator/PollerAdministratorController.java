@@ -28,6 +28,7 @@ public class PollerAdministratorController {
 		
 		res.addObject("poller", pollerService.findAll());
 		res.addObject("bannedPollers", pollerService.pollersBanned());
+		res.addObject("isPoller", false);
 
 		return res;
 	}

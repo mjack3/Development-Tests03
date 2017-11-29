@@ -48,6 +48,7 @@ public class PollPollerController {
 		res.addObject("poll", poller.getPolls());
 		res.addObject("actualDate", Calendar.getInstance().getTime());
 		res.addObject("validPeriod", validPeriodService.get().getMinimumPeriod());
+		res.addObject("isPoller", true);
 
 		return res;
 	}

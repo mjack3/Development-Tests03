@@ -66,6 +66,10 @@ public class ActorService {
 		return actorRepository.save(arg0);
 	}
 	
+	public Actor findByAccount(Integer accountId) {
+		return actorRepository.findByAccount(accountId);
+	}
+	
 	public Actor getActual(){
 		Actor res=null;
 		

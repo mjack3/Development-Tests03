@@ -109,7 +109,7 @@
 			</a>
 		</display:column>
 
-		<jstl:if test="${row.endDate.after(actualDate)}">
+		<jstl:if test="${row.endDate.after(actualDate) && isPoller}">
 		
 			<display:column>
 				<a href="poll/poller/edit.do?q=${row.id}"> <spring:message

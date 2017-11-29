@@ -75,6 +75,8 @@ public class FolderService {
 
 	public Folder saveCreate(Folder folder) {
 		Assert.notNull(folder);
+		Assert.isTrue(!folder.getName().equals("inbox") && !folder.getName().equals("outbox")
+			&& !folder.getName().equals("trashbox") && !folder.getName().equals("spambox"));
 
 		Folder saved = folderRepository.save(folder);
 		UserAccount userAccount = LoginService.getPrincipal();

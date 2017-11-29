@@ -21,6 +21,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<h3><b><spring:message code="instance.ticker" />  ${instance.ticker}</b></h3>
 
 <b><spring:message code="answer.name" /></b>
 <input type="text" class="form-control" style="width: 30%;" name="name" id="name">

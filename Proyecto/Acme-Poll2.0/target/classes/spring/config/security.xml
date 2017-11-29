@@ -87,6 +87,14 @@
 		<security:intercept-url pattern="/mailmessage/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/folder/actor/**" access="isAuthenticated()" />
 		
+		<!-- CHIRPS -->
+		
+		<security:intercept-url pattern="/actor/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/chirp/actor/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/chirp/actor/mylist.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/chirp/actor/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/chirp/actor/save.do" access="isAuthenticated()" />
+		
 		<!-- Fin Reme -->
 
 		<security:intercept-url pattern="/**"

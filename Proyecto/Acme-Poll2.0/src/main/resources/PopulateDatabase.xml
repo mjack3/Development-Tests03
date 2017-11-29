@@ -1241,4 +1241,26 @@
 	</bean>
 	
 	
+	<bean id="message1" class="domain.MailMessage">
+	<property name="subject" value="saludos"/>
+	<property name="body" value="Hello world"/>
+	<property name="sentMoment" value="10/10/2017"/>
+	<property name="priority" ref="priority1"/>
+	<property name="sender" ref="admin1"/>
+	<property name="recipient" ref="poller1"/>
+	</bean>
+	
+	<bean id="message2" class="domain.MailMessage">
+	<property name="subject" value="saludos"/>
+	<property name="body" value="Hello world"/>
+	<property name="sentMoment" value="10/10/2017"/>
+	<property name="priority" ref="priority1"/>
+	<property name="sender" ref="poller1"/>
+	<property name="recipient" ref="admin1"/>
+	</bean>
+	
+	<bean id="priority1" class="domain.Priority">
+	<property name="value" value="NEUTRAL"/>
+	</bean>
+	
 </beans>

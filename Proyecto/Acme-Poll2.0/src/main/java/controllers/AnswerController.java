@@ -87,7 +87,7 @@ public class AnswerController {
 				res = "poll/list";
 			else
 				res = "poller/list";
-			ticket = ((Instance) resultado).getTicker();
+//			ticket = ((Instance) resultado).getTicker();
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = "poll/list";

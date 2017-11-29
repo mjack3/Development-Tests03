@@ -42,6 +42,7 @@ public class PollController extends AbstractController {
 		result.addObject("poll", catalogue);
 		result.addObject("actualDate", actualDate);
 		result.addObject("validPeriod", validPeriodService.get().getMinimumPeriod());
+		result.addObject("isPoller", false);
 		return result;
 	}
 	
