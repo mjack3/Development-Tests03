@@ -27,7 +27,7 @@
 
 <br />
 
-<display:table pagesize="5" keepStatus="true" name="poll"
+<display:table keepStatus="true" name="poll"
 	requestURI="${requestURI}" id="row" class="table table-over">
 
 
@@ -109,16 +109,14 @@
 			</a>
 		</display:column>
 
-		<jstl:if test="${row.endDate.after(actualDate) && isPoller}">
+		<jstl:if test="${row.startDate.after(actualDate) && isPoller}">
 		
 			<display:column>
 				<a href="poll/poller/edit.do?q=${row.id}"> <spring:message
 					code="acme.edit" />
 				</a>
-			</display:column>
-
-			<display:column>
-				<a href="poll/poller/remove.do?q=${row.id}"> <spring:message
+				<br/>
+				<a href="poll/poller/remove.do?q=${row.id}"><spring:message
 						code="acme.delete" />
 				</a>
 			</display:column>

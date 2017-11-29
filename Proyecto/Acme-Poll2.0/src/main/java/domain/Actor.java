@@ -59,8 +59,8 @@ public abstract class Actor extends DomainEntity {
 	public void setEmail(final String email) {
 		this.email = email;
 	}
-	
-	@Pattern(regexp = "^(\\+([0-9][0-9]([ ])?)(\\([0-9]{1,3}\\))? ([a-zA-Z0-9 -]{4,}))?$")
+
+	@Pattern(regexp = "^((\\+\\d{2}(\\(\\d{1,3}\\))?)?\\d{4,40})?$")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -81,9 +81,9 @@ public abstract class Actor extends DomainEntity {
 
 	//RelationShips	------------------------
 
-	private UserAccount	userAccount;
-	private List<Chirp>	chirps;
-	private Collection<Folder>			folders;
+	private UserAccount			userAccount;
+	private List<Chirp>			chirps;
+	private Collection<Folder>	folders;
 
 
 	@NotNull
@@ -106,14 +106,14 @@ public abstract class Actor extends DomainEntity {
 	public void setChirps(final List<Chirp> chirps) {
 		this.chirps = chirps;
 	}
-	
+
 	@NotNull
 	@OneToMany
 	public Collection<Folder> getFolders() {
-		return folders;
+		return this.folders;
 	}
 
-	public void setFolders(Collection<Folder> folders) {
+	public void setFolders(final Collection<Folder> folders) {
 		this.folders = folders;
 	}
 
