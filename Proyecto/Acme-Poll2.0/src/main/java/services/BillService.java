@@ -1,7 +1,7 @@
+
 package services;
 
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
 import domain.Bill;
 import domain.Poll;
 import domain.Poller;
@@ -24,13 +23,14 @@ public class BillService {
 	//Manager repositories
 
 	@Autowired
-	private BillRepository billRepository;
+	private BillRepository	billRepository;
 
 	@Autowired
-	private PollService pollService;
-	
+	private PollService		pollService;
+
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
+
 
 	//Constructor
 
@@ -39,39 +39,36 @@ public class BillService {
 	}
 
 	//CRUD Methods
-	
+
 	public Bill findOne(Integer arg0) {
 		Assert.notNull(arg0);
 		return billRepository.findOne(arg0);
 	}
-
 
 	public Bill save(Bill arg0) {
 		Assert.notNull(arg0);
 		arg0.setPaid(true);
 		return billRepository.save(arg0);
 	}
-	
-	
+
 	//Other Methods
-	
+
 	public List<Bill> billsPaid() {
 		return billRepository.billsPaid();
 	}
-
 
 	public List<Bill> billsEndorsed() {
 		return billRepository.billsEndorsed();
 	}
 
 	public void endorse(Bill bill) {
-		
+
 		Assert.isTrue(bill.getPaid());
-		
-		if(bill.getPaid()) {
+
+		if (bill.getPaid()) {
 			bill.setEndorsed(true);
 		}
-		
+
 		billRepository.save(bill);
 	}
 
@@ -89,21 +86,17 @@ public class BillService {
 
 	public String avgMaxMinAmountToBePaid() {
 		Object[] obj = billRepository.avgMaxMinAmountToBePaid();
-		String res = "avg: " + obj[0].toString() + ", max: " + obj[1].toString() + 
-				", min: " + obj[2].toString();
+		String res = "avg: " + obj[0].toString() + ", max: " + obj[1].toString() + ", min: " + obj[2].toString();
 		return res;
 	}
 
 	public Bill create() {
-		Bill b= new Bill();
-		
-		b.setAmount(new Double(0.0));
+		Bill b = new Bill();
+
 		b.setDate(Calendar.getInstance().getTime());
 		b.setEndorsed(false);
 		b.setPaid(false);
-		b.setPoll(new Poll());
-		b.setReceipt("");
-		
+
 		return b;
 	}
 
@@ -113,26 +106,23 @@ public class BillService {
 		bill = billRepository.save(bill);
 		poll.setBill(bill);
 		pollService.update(poll);
-		
+
 		return bill;
 	}
-	
+
 	public List<Bill> list() {
 		Assert.isTrue(LoginService.isAnyAuthenticated() && LoginService.hasRole("POLLER"));
-		Poller p =(Poller)actorService.findByAccount(LoginService.getPrincipal().getId());
-		
+		Poller p = (Poller) actorService.findByAccount(LoginService.getPrincipal().getId());
+
 		return (List<Bill>) p.getBills();
 	}
-	
-	public Bill addReceipt(Integer bId,String receipt) {
+
+	public Bill addReceipt(Integer bId, String receipt) {
 		Bill b = billRepository.findOne(bId);
 		Assert.isTrue(billRepository.exists(b.getId()) && !b.getPaid() && !b.getEndorsed());
 		b.setReceipt(receipt);
-		
+
 		return billRepository.save(b);
 	}
-	
-	
 
-	
 }

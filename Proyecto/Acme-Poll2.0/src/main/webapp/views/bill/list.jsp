@@ -26,7 +26,7 @@
 
 
 	<spring:message code="bill.amount" var="amountHeader" />
-	<display:column property="amount" title="${amountHeader}"
+	<display:column property="amount" title="${amountHeader}" 
 		sortable="false" />
 
 	<spring:message code="bill.date" var="dateHeader" />

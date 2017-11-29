@@ -144,14 +144,16 @@
 		
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 	
-	<jstl:if test="${row.bill==null}">
+	
 		
 		<display:column>
+		<jstl:if test="${row.bill==null}">
 			<a href="bill/administrator/create.do?q=${row.id}"> 
 			<spring:message code="poll.bill" />
 			</a>
+			</jstl:if>
 		</display:column>
-	</jstl:if>
+	
 	
 	</security:authorize>
 
