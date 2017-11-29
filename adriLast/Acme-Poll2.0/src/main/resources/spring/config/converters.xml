@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * converters.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
+	">
+
+	<util:list id="converters">
+		
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.PollToStringConverter" />
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.PollerToStringConverter" />
+		<bean class="converters.AnswerToStringConverter" />
+		<bean class="converters.ChirpToStringConverter" />
+		<bean class="converters.HintToStringConverter" />
+		<bean class="converters.ValidPeriodToStringConverter" />
+		<bean class="converters.BillToStringConverter" />
+		<bean class="converters.FolderToStringConverter" />
+		<bean class="converters.MailMessageToStringConverter" />
+		<bean class="converters.SpamWordToStringConverter" />
+		<bean class="converters.InstanceToStringConverter" />
+		<bean class="converters.QuestionToStringConverter" />
+		
+
+		<bean class="converters.StringToUserAccountConverter" />
+		<bean class="converters.StringToPollConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.StringToPollerConverter" />
+		<bean class="converters.StringToAnswerConverter" />
+		<bean class="converters.StringToChirpConverter" />
+		<bean class="converters.StringToHintConverter" />
+		<bean class="converters.StringToValidPeriodConverter" />
+		<bean class="converters.StringToBillConverter" />
+		<bean class="converters.StringToFolderConverter" />
+		<bean class="converters.StringToMailMessageConverter" />
+		<bean class="converters.StringToSpamWordConverter" />
+		<bean class="converters.StringToInstanceConverter" />
+		<bean class="converters.StringToQuestionConverter" />
+		
+		
+		
+	</util:list>
+	
+</beans>
