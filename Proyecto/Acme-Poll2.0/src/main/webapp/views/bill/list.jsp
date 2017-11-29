@@ -22,7 +22,7 @@
 
 
 
-<display:table pagesize="5" name="bill"  id="row" class="table table-over">
+<display:table pagesize="5" name="bill" requestURI="${requestURI}" id="row" class="table table-over">
 
 
 	<spring:message code="bill.amount" var="amountHeader" />
