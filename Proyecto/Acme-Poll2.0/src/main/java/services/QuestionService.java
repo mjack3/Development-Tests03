@@ -62,7 +62,7 @@ public class QuestionService {
 	}
 
 
-	@Autowired
+	@Autowired(required=false)
 	Validator	validator;
 
 
