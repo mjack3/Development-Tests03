@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -30,6 +31,9 @@ public class BillService {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private PollerService	pollerService;
 
 
 	//Constructor
@@ -93,20 +97,28 @@ public class BillService {
 	public Bill create() {
 		Bill b = new Bill();
 
+		b.setAmount(new Double(0.0));
 		b.setDate(Calendar.getInstance().getTime());
 		b.setEndorsed(false);
 		b.setPaid(false);
+		b.setPoll(new Poll());
+		b.setReceipt("");
 
 		return b;
 	}
 
 	public Bill save(Bill bill, Integer pollId) {
+		Assert.notNull(bill);
 		Poll poll = pollService.findOne(pollId);
 		bill.setPoll(poll);
 		bill = billRepository.save(bill);
 		poll.setBill(bill);
 		pollService.update(poll);
-
+		Poller poller = poll.getPoller();
+		List<Bill> bills = poller.getBills() == null ? new LinkedList<Bill>() : (List<Bill>) poller.getBills();
+		bills.add(bill);
+		poller.setBills(bills);
+		pollerService.save(poller);
 		return bill;
 	}
 

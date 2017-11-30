@@ -1,9 +1,6 @@
 
 package controllers.poller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bill;
-import domain.Poll;
 import domain.Poller;
 import security.LoginService;
 import services.BillService;
@@ -42,15 +38,8 @@ public class BillPollerController {
 		res = new ModelAndView("bill/list");
 
 		Poller poller = pollerService.findActorByUsername(LoginService.getPrincipal().getId());
-		List<Bill> bills = new ArrayList<Bill>();
-		for (Poll b : poller.getPolls()) {
-			if (b.getBill() != null) {
-				bills.add(b.getBill());
-			}
 
-		}
-
-		res.addObject("bill", bills);
+		res.addObject("bill", poller.getBills());
 
 		return res;
 	}
@@ -63,15 +52,7 @@ public class BillPollerController {
 			res = new ModelAndView("bill/add");
 			final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
 			Bill bill = billService.findOne(q);
-
-			List<Bill> bills = new ArrayList<Bill>();
-			for (Poll b : pollerlogin.getPolls()) {
-				if (b.getBill() != null) {
-					bills.add(b.getBill());
-				}
-
-			}
-			Assert.isTrue(bills.contains(bill));
+			Assert.isTrue(pollerlogin.getBills().contains(bill));
 			res.addObject("bill", bill);
 			res.addObject("error", false);
 		} catch (Throwable e) {
@@ -86,14 +67,7 @@ public class BillPollerController {
 	public ModelAndView confirmAdd(@Valid Bill bill, BindingResult binding) {
 		ModelAndView res;
 		final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		List<Bill> bills = new ArrayList<Bill>();
-		for (Poll b : pollerlogin.getPolls()) {
-			if (b.getBill() != null) {
-				bills.add(b.getBill());
-			}
-
-		}
-		if (!bills.contains(bill)) {
+		if (!pollerlogin.getBills().contains(bill)) {
 			res = new ModelAndView("redirect:/welcome/index.do");
 		}
 		if (bill.getReceipt().isEmpty()) {
@@ -118,14 +92,7 @@ public class BillPollerController {
 	public ModelAndView saveAdd(@Valid Bill bill, BindingResult binding) {
 		ModelAndView res;
 		final Poller pollerlogin = (Poller) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		List<Bill> bills = new ArrayList<Bill>();
-		for (Poll b : pollerlogin.getPolls()) {
-			if (b.getBill() != null) {
-				bills.add(b.getBill());
-			}
-
-		}
-		if (!bills.contains(bill)) {
+		if (!pollerlogin.getBills().contains(bill)) {
 			res = new ModelAndView("redirect:/welcome/index.do");
 		}
 
