@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Answer;
-import domain.Instance;
-import domain.Poll;
 import services.ActorService;
 import services.InstanceService;
 import services.PollService;
+import domain.Answer;
+import domain.Instance;
+import domain.Poll;
 
 @Controller
 @RequestMapping("/answer")
@@ -45,7 +45,7 @@ public class AnswerController {
 			this.toSave = q;
 
 			res.addObject("question", poll.getQuestions());
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			res = new ModelAndView("redirect:/welcome/index.do");
 		}
 
@@ -58,39 +58,38 @@ public class AnswerController {
 
 		res = new ModelAndView("answer/correctSave");
 
-		res.addObject("ticket", ticket);
+		res.addObject("ticket", this.ticket);
 
 		return res;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(String data, String gender, String city, String name) {
+	public String save(final String data, final String gender, final String city, final String name) {
 
 		String res = null;
-		Poll p = this.pollService.findOne(this.toSave);
+		final Poll p = this.pollService.findOne(this.toSave);
 
 		try {
 
-			String[] answers = data.substring(1, data.length()).split(",");
-			List<Answer> ansToSave = new LinkedList<Answer>();
+			final String[] answers = data.substring(1, data.length()).split(",");
+			final List<Answer> ansToSave = new LinkedList<Answer>();
 
 			for (int i = 0; i < answers.length; i++) {
-				Answer a = new Answer();
+				final Answer a = new Answer();
 				a.setSelected(new Integer(answers[i]));
 				a.setQuestion(i + 1);
 				ansToSave.add(a);
 			}
 
 			//Se usa para diferenciar en la respuesta si ha respondido anteriormente esa encuesta
-			Object resultado = this.instanceService.save(ansToSave, p, city, gender, name);
-			if (resultado != null)
+			final Instance resultado = this.instanceService.save(ansToSave, p, city, gender, name);
+			if (resultado != null) {
 				res = "poll/list";
-			else
+				this.ticket = resultado.getTicker();
+			} else
 				res = "poller/list";
 
-			ticket = ((Instance) resultado).getTicker();
-
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			res = "poll/list";
 		}
@@ -98,33 +97,33 @@ public class AnswerController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(String data, String gender, String city, String name, String instance) {
+	public String update(final String data, final String gender, final String city, final String name, final String instance) {
 
 		String res = null;
-		Poll p = this.pollService.findOne(this.toSave);
+		final Poll p = this.pollService.findOne(this.toSave);
 
 		try {
 
-			String[] answers = data.substring(1, data.length()).split(",");
-			List<Answer> ansToSave = new LinkedList<Answer>();
-			Instance ins = instanceService.findOne(new Integer(instance));
+			final String[] answers = data.substring(1, data.length()).split(",");
+			final List<Answer> ansToSave = new LinkedList<Answer>();
+			final Instance ins = this.instanceService.findOne(new Integer(instance));
 
 			for (int i = 0; i < answers.length; i++) {
-				Answer a = new Answer();
+				final Answer a = new Answer();
 				a.setSelected(new Integer(answers[i]));
 				a.setQuestion(i + 1);
 				ansToSave.add(a);
 			}
 
 			//Se usa para diferenciar en la respuesta si ha respondido anteriormente esa encuesta
-			Object resultado = this.instanceService.update(ins, ansToSave, p, city, gender, name);
+			final Object resultado = this.instanceService.update(ins, ansToSave, p, city, gender, name);
 			if (resultado != null)
 				res = "poll/list";
 			else
 				res = "poller/list";
 
-			ticket = ((Instance) resultado).getTicker();
-		} catch (Exception e) {
+			this.ticket = ((Instance) resultado).getTicker();
+		} catch (final Exception e) {
 			e.printStackTrace();
 			res = "poll/list";
 		}

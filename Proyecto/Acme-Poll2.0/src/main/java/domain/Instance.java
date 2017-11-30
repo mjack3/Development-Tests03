@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -31,16 +30,15 @@ public class Instance extends DomainEntity {
 	private String	name;
 	private String	gender;
 	private String	city;
-	private Integer edits;
+	private Integer	edits;
 
 
 	@NotBlank
-	@Column(unique=true)
-	@Pattern(regexp = "^[a-zA-Z]{2}-\\d{5}$")
+	@Column(unique = true)
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
 
@@ -67,13 +65,13 @@ public class Instance extends DomainEntity {
 	public void setCity(final String city) {
 		this.city = city;
 	}
-	
+
 	@NotNull
-	@Range(min=0)
+	@Range(min = 0)
 	public Integer getEdits() {
-		return edits;
+		return this.edits;
 	}
-	public void setEdits(Integer edits) {
+	public void setEdits(final Integer edits) {
 		this.edits = edits;
 	}
 

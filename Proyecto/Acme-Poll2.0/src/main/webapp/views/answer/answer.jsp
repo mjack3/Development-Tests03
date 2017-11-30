@@ -101,7 +101,7 @@ function save(){
 		    	//Si el resultado contiene el titulo del listado de poll es que es correcto
 		    	if(result !=null && (result.includes('Polls list') || result.includes('Lista de encuestas'))){
 		    		//Redireccion
-		   		 	document.location.href = 'poll/list.do';
+		   		 	document.location.href = 'answer/correctSave.do';
 		    	}else{
 		    		alert("${alert2}");
 		    	}
