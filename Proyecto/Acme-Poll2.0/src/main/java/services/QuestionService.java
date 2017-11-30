@@ -62,8 +62,8 @@ public class QuestionService {
 	}
 
 
-	@Autowired(required=false)
-	Validator	validator;
+	@Autowired
+	private Validator	validator;
 
 
 	public Question reconstruct(final Question question, final BindingResult bindingResult) {
