@@ -57,14 +57,7 @@
 	<display:column property="endDate" title="${endDateHeader}"
 		sortable="false" />
 
-	<security:authorize access="permitAll()">
-
-		<display:column>
-			<a href="question/list.do?q=${row.id}"> <spring:message
-					code="poll.questions" />
-			</a>
-		</display:column>
-
+		
 		<display:column>
 			<a href="poller/view.do?pollId=${row.id}"> <spring:message
 					code="poll.poller" />
@@ -76,65 +69,50 @@
 					code="poll.hints" />
 			</a>
 		</display:column>
+	
+		<display:column>
+		<jstl:if test="${row.endDate.after(actualDate) and row.startDate.before(actualDate)}">
 
-		<jstl:if test="${row.endDate.after(actualDate)}">
-
-			<display:column>
+			
 				<a href="answer/answer.do?q=${row.id}"> <spring:message
 						code="poll.answer" />
 				</a>
-			</display:column>
+			
 
 		</jstl:if>
-
-	</security:authorize>
+	</display:column>
 
 	<security:authorize access="hasRole('POLLER')">
 
-		<display:column>
-			<a href="question/poller/list.do?q=${row.id}"> <spring:message
-					code="poll.questions" />
-			</a>
-		</display:column>
+	
+<display:column>
 
-		<display:column>
-			<a href="poller/view.do?pollId=${row.id}"> <spring:message
-					code="poll.poller" />
-			</a>
-		</display:column>
+<jstl:choose>
 
-		<display:column>
-			<a href="hint/poller/list.do?q=${row.id}"> <spring:message
-					code="poll.hints" />
-			</a>
-		</display:column>
-
-		<jstl:if test="${row.startDate.after(actualDate) && isPoller}">
-		
-			<display:column>
-				<a href="poll/poller/edit.do?q=${row.id}"> <spring:message
-					code="acme.edit" />
-				</a>
+	<jstl:when test="${row.startDate.after(actualDate) && isPoller}">
+		<a href="poll/poller/edit.do?q=${row.id}"><spring:message code="acme.edit" /></a>
 				<br/>
-				<a href="poll/poller/remove.do?q=${row.id}"><spring:message
-						code="acme.delete" />
-				</a>
-			</display:column>
-			
-			<display:column>
-				<a href="answer/answer.do?q=${row.id}"> <spring:message
-						code="poll.answer" />
-				</a>
-			</display:column>
+				<a href="poll/poller/remove.do?q=${row.id}"><spring:message code="acme.delete" /></a>
+	</jstl:when>
+	
+	<jstl:otherwise>
+	
+	</jstl:otherwise>
 
-		</jstl:if>
+</jstl:choose>
 
+		
+</display:column>
 	</security:authorize>
 	
 		<display:column>
-			<a href="poll/results.do?q=${row.id}"> <spring:message
+			<jstl:if test="${row.startDate.before(actualDate) }">
+				<a href="poll/results.do?q=${row.id}"> <spring:message
 					code="poll.result" />
 			</a>
+			</jstl:if>
+			
+			
 		</display:column>
 		<jstl:if test="diffDaysValid(${row.endDate},${row.startDate},${validPeriod});">
 		<display:column>

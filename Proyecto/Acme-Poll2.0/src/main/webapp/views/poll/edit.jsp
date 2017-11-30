@@ -41,5 +41,5 @@
 
 </form:form>
 
-
+<a href="question/poller/list.do?q=${poll.id }" > <spring:message code="poll.editAnswers" /> </a>
 

@@ -54,6 +54,12 @@
 					code="question.choices" />
 			</a>
 		</display:column>
+		
+		<display:column>
+			<jstl:if test="${editable == 1 }">
+				<a href="question/poller/edit.do?questionId=${row.id }"> <spring:message code="acme.edit" /> </a>
+			</jstl:if>
+		</display:column>
 
 	</security:authorize>
 
@@ -61,7 +67,7 @@
 
 </display:table>
 
-
+<a href="question/poller/create.do?pollId=${pollId }"> <spring:message code="acme.create" /> </a>
 
 
 
