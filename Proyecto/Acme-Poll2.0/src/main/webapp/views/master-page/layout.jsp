@@ -36,7 +36,6 @@
  type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 
-
 <!-- Bootstrap links -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -59,18 +58,6 @@
 			form.submit();
 	}
 </script>
-
-<script type="text/javascript">
-		function relativeRedir(loc) {	
-			var b = document.getElementsByTagName('base');
-			if (b && b[0] && b[0].href) {
-	  			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
-	    		loc = loc.substr(1);
-	  			loc = b[0].href + loc;
-			}
-			window.location.replace(loc);
-		}
-	</script>
 
 </head>
 

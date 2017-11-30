@@ -28,7 +28,7 @@
 	    
 		<label> <spring:message code="bill.amount"/> </label>
 		<br />
-		<input class="form-control" value="${bill.amount}" type="number" min="1" max="100" step="1" name="amount"/>
+		<input class="form-control" value="${bill.amount}" type="number" min="0.1" step=".01" name="amount"/>
 		<form:errors cssClass="error" path="amount" /> <br />
 		
 		</div>

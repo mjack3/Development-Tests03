@@ -57,7 +57,7 @@
 	<display:column property="endDate" title="${endDateHeader}"
 		sortable="false" />
 
-	<security:authorize access="permitAll() && !hasRole('POLLER')">
+	<security:authorize access="permitAll()">
 
 		<display:column>
 			<a href="question/list.do?q=${row.id}"> <spring:message

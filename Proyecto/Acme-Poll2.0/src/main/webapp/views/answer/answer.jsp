@@ -97,10 +97,11 @@ function save(){
 		    type: "POST",
 		    data: {'data':res,'city':$('[name="city"]').val(),'gender':$('[name="gender"]').val(),'name':$('[name="name"]').val()},
 		    success: function(result){
+		    	
 		    	//Si el resultado contiene el titulo del listado de poll es que es correcto
 		    	if(result !=null && (result.includes('Polls list') || result.includes('Lista de encuestas'))){
 		    		//Redireccion
-		   		 	document.location.href = 'answer/correctSave.do';
+		   		 	document.location.href = 'poll/list.do';
 		    	}else{
 		    		alert("${alert2}");
 		    	}
@@ -116,6 +117,7 @@ function save(){
 	}else{
 		alert("${alert}");
 	}
+	
 	
 }
 

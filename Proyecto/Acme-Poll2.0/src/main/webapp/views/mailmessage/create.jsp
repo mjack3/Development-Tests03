@@ -18,7 +18,7 @@
 </jstl:if>
 
 <acme:acme_form save_button_msg="mailmessage.send" areaFields="body"
-	skip_fields="priority,sent" type="create" entity="${mailmessage}"
+	skip_fields="priority,sent,sentMoment" type="create" entity="${mailmessage}"
 	url="mailmessage/actor/save.do" numberSteps="0.25" >
 	<div class="form-group" style="width: 55%;">
 		<label><spring:message code='mailmessage.priority' /></label> <select

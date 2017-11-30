@@ -23,7 +23,7 @@
 
 
 <h3><b><spring:message code="answer.ticker" /></b></h3>
-<h4>${ticker}</h4>
+<h4>${ticket}</h4>
 
 <br/>
 		
